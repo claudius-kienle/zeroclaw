@@ -1624,6 +1624,111 @@
       },
       "default": [],
       "description": "Arbitrary extra Kubernetes manifests to deploy alongside the chart."
+    },
+    "signalCli": {
+      "type": "object",
+      "description": "Signal CLI REST API Bridge configuration for Signal messaging support.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable signal-cli deployment."
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string",
+              "default": "bbernhard/signal-cli-rest-api"
+            },
+            "tag": {
+              "type": "string",
+              "default": "latest"
+            },
+            "pullPolicy": {
+              "type": "string",
+              "enum": ["Always", "IfNotPresent", "Never"],
+              "default": "IfNotPresent"
+            }
+          },
+          "additionalProperties": false
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["native", "json-rpc"],
+          "default": "native",
+          "description": "Signal CLI mode."
+        },
+        "service": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["ClusterIP", "NodePort", "LoadBalancer"],
+              "default": "ClusterIP"
+            },
+            "port": {
+              "type": "integer",
+              "default": 8686
+            },
+            "annotations": {
+              "type": "object",
+              "additionalProperties": {"type": "string"},
+              "default": {}
+            }
+          },
+          "additionalProperties": false
+        },
+        "resources": {
+          "type": "object",
+          "description": "Resource requests and limits."
+        },
+        "probes": {
+          "type": "object",
+          "properties": {
+            "liveness": {
+              "type": "object",
+              "properties": {
+                "enabled": {"type": "boolean", "default": true},
+                "path": {"type": "string", "default": "/v1/health"},
+                "initialDelaySeconds": {"type": "integer", "default": 30},
+                "periodSeconds": {"type": "integer", "default": 30},
+                "timeoutSeconds": {"type": "integer", "default": 5},
+                "failureThreshold": {"type": "integer", "default": 3}
+              },
+              "additionalProperties": false
+            },
+            "readiness": {
+              "type": "object",
+              "properties": {
+                "enabled": {"type": "boolean", "default": true},
+                "path": {"type": "string", "default": "/v1/health"},
+                "initialDelaySeconds": {"type": "integer", "default": 10},
+                "periodSeconds": {"type": "integer", "default": 10},
+                "timeoutSeconds": {"type": "integer", "default": 5},
+                "failureThreshold": {"type": "integer", "default": 3}
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "nodeSelector": {
+          "type": "object",
+          "additionalProperties": {"type": "string"},
+          "default": {}
+        },
+        "tolerations": {
+          "type": "array",
+          "items": {"type": "object"},
+          "default": []
+        },
+        "affinity": {
+          "type": "object",
+          "default": {}
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

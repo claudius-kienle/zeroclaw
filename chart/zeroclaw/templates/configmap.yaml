@@ -262,5 +262,5 @@ data:
     {{- if .Values.config.extraConfig }}
 
     # ── Extra configuration ───────────────────────────────────
-{{ .Values.config.extraConfig | indent 4 }}
+{{ tpl .Values.config.extraConfig . | indent 4 }}
     {{- end }}

@@ -190,26 +190,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /zeroclaw-data
-        {{- if eq .Values.config.mode "daemon" }}
-        - name: gateway-proxy
-          image: alpine/socat:1.8.0.3
-          args:
-            - TCP-LISTEN:{{ .Values.service.targetPort }},fork,reuseaddr
-            - TCP:127.0.0.1:8080
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.targetPort }}
-              protocol: TCP
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 65534
-            runAsGroup: 65534
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop:
-                - ALL
-        {{- end }}
       volumes:
         - name: data
           {{- if .Values.persistence.enabled }}

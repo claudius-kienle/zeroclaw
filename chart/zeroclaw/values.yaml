@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/theonlyhennygod/zeroclaw
+  repository: ghcr.io/zeroclaw-labs/zeroclaw
   pullPolicy: IfNotPresent
   tag: latest
 
@@ -444,3 +444,55 @@ extraEnvFrom: []
 #       policyTypes:
 #         - Ingress
 extraManifests: []
+
+# ---------------------------------------------------------------------------
+# Signal CLI REST API Bridge
+# Deploy signal-cli HTTP bridge for Signal messaging channel support.
+# ---------------------------------------------------------------------------
+signalCli:
+  # Enable signal-cli deployment
+  enabled: false
+
+  image:
+    repository: bbernhard/signal-cli-rest-api
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  # Mode: "native" (recommended) or "json-rpc"
+  mode: native
+
+  service:
+    type: ClusterIP
+    port: 8686
+    annotations: {}
+
+  # Signal CLI uses the main zeroclaw PVC (persistence section above)
+  # Data is stored in a 'signal-cli' subdirectory
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+  probes:
+    liveness:
+      enabled: true
+      path: /v1/health
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      timeoutSeconds: 5
+      failureThreshold: 3
+    readiness:
+      enabled: true
+      path: /v1/health
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
