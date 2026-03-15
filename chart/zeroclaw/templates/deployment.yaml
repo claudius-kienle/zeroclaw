@@ -149,11 +149,6 @@ spec:
             {{- end }}
             - name: ZEROCLAW_OPEN_SKILLS_ENABLED
               value: {{ ternary "true" "false" .Values.config.skills.openSkills | quote }}
-            - name: API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "zeroclaw.apiKeySecretName" . }}
-                  key: {{ ternary "API_KEY" .Values.secret.existingSecretKey .Values.secret.create }}
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

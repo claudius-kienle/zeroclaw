@@ -26,9 +26,7 @@ Or use an existing secret:
 
 ```bash
 helm install zeroclaw ./chart/zeroclaw \
-  --set secret.create=false \
-  --set secret.existingSecret=zeroclaw-api \
-  --set secret.existingSecretKey=API_KEY
+  --set secret.create=false
 ```
 
 ## Upgrade
