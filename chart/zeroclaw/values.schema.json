@@ -1288,6 +1288,11 @@
           },
           "additionalProperties": false
         },
+        "providerMaxTokens": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum output tokens to include in LLM provider API requests. Overrides each provider's built-in default."
+        },
         "extraConfig": {
           "type": "string",
           "default": "",

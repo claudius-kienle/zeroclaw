@@ -16,6 +16,9 @@ data:
     default_model = "claude-sonnet-4-5-20250929"
     {{- end }}
     default_temperature = {{ .Values.config.temperature }}
+    {{- if .Values.config.providerMaxTokens }}
+    provider_max_tokens = {{ .Values.config.providerMaxTokens }}
+    {{- end }}
 
     # ── Gateway ───────────────────────────────────────────────
     [gateway]
