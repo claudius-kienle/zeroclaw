@@ -143,6 +143,18 @@ config:
     # Level: "readonly" | "supervised" | "full"
     level: supervised
     workspaceOnly: true
+    autoApprove:
+      - file_read
+      - memory_recall
+      - web_search_tool
+      - web_fetch
+      - calculator
+      - glob_search
+      - content_search
+      - image_info
+      - weather
+      - browser
+      - browser_open
     allowedCommands:
       - git
       - npm

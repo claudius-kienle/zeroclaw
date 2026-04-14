@@ -634,6 +634,11 @@
               },
               "description": "Commands the agent is allowed to execute."
             },
+            "autoApprove": {
+              "type": "array",
+              "default": ["file_read", "memory_recall", "web_search_tool", "web_fetch", "calculator", "glob_search", "content_search", "image_info", "weather", "browser", "browser_open"],
+              "description": "Automatically approve all actions without human intervention. Use with caution!"
+            },
             "forbiddenPaths": {
               "type": "array",
               "items": {

@@ -54,6 +54,7 @@ data:
     level = {{ .Values.config.autonomy.level | quote }}
     workspace_only = {{ .Values.config.autonomy.workspaceOnly }}
     allowed_commands = {{ include "zeroclaw.tomlStringList" .Values.config.autonomy.allowedCommands }}
+    auto_approve = {{ .Values.config.autonomy.autoApprove }}
     forbidden_paths = {{ include "zeroclaw.tomlStringList" .Values.config.autonomy.forbiddenPaths }}
     max_actions_per_hour = {{ .Values.config.autonomy.maxActionsPerHour }}
     max_cost_per_day_cents = {{ .Values.config.autonomy.maxCostPerDayCents }}
